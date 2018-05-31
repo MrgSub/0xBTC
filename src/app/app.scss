@@ -14,3 +14,40 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.box {
+    border-radius: 10px;
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+}
+
+.tip {
+    font-size: 1rem;
+    color: rgb(241, 241, 241);
+}
+
+.btn {
+    border-radius: 10px;
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    background: #ff7209;
+}
+
+.button.activated {
+    background: white;
+    color: #ff7209;
+}
+
+.style {
+    background: #ff7209;
+    color: #FFF;
+    font-weight: 600;
+}
+
+.styleBorder {
+    border-color: #ff7209;
+    color: #ff7209;
+    font-weight: 600;
+}
+
+.centerText {
+    text-align: center;
+}

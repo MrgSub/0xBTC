@@ -1,14 +1,10 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content padding no-bounce>
+	<div class="logo"></div>
+	<div class="intro box">
+		<h2>0xBitcoin Wallet</h2>
+		<p>You can get started by scanning the QR Code of your Ethereum wallet (Provided when you created your wallet) or you can generate a new one.</p>
+		<p class="tip">After you click the scan button below you will have 10 seconds to scan the QR Code or you will be returned to this page.</p>
+	</div>
+	<button ion-button full class="btn" style="margin-top: 10%;" (click)="_handleScan()"><ion-icon name="qr-scanner"></ion-icon></button>
+	<button ion-button full class="btn" style="margin-top: 10%;" (click)="_handleSaved()">Load Saved</button>
 </ion-content>

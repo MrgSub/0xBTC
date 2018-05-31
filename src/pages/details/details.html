@@ -1,0 +1,81 @@
+<!--
+  Generated template for the DetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  	<ion-navbar>
+    	<ion-title>Wallet Details</ion-title>
+  	</ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-list>
+		<ion-item class="box style">
+		  	<ion-label>Choose a pool</ion-label>
+		  	<ion-select [(ngModel)]="pool" (ionChange)="loadPoolData(pool)">
+				<ion-option value="mike.rs:4000">Mike.rs</ion-option>
+				<ion-option value="b.mike.rs:4000">b.Mike.rs</ion-option>
+				<ion-option value="0xpool.io:4000">0xPool</ion-option>
+				<ion-option value="tokenminingpool.com:4000">TokenMiningPool</ion-option>
+				<ion-option value="0xminingpool.com:4000">0xMiningPool</ion-option>
+				<ion-option value="0xbtc.wolfpool.io:4000">Wolfpool</ion-option>
+				<ion-option value="tosti.ro:4000">Tosti</ion-option>
+		  	</ion-select>
+		</ion-item>
+		<ion-item>
+		  	<ion-label>Token Balance</ion-label>
+		  	<p item-end>{{tokenBalance}}</p>
+		</ion-item>
+		<ion-item>
+		  	<ion-label>Valid Solutions</ion-label>
+		  	<p item-end>{{validSubmittedSolutionsCount}}</p>
+		</ion-item>
+		<ion-item>
+		  	<ion-label>Last Solution Time</ion-label>
+		  	<p item-end>{{lastSubmittedSolutionTime}}</p>
+		</ion-item>
+		<ion-item>
+		  	<ion-label>Tokens Awarded</ion-label>
+		  	<p item-end>{{tokensAwarded}}</p>
+		</ion-item>
+		<ion-item>
+		  	<ion-label>Custom Difficulty</ion-label>
+		  	<p item-end>{{usingCustomDifficulty}}</p>
+		</ion-item>
+		<ion-item class="box style centerText"> 
+			<ion-label>EtherScan</ion-label>
+		</ion-item>
+		<ion-item> 
+			<ion-label>Wallet Balance</ion-label>
+			<p item-end>{{walletBalance}}</p>
+		</ion-item>
+		<ion-item class="box styleBorder"> 
+			<ion-label style="font-size: 1.4rem;">Transactions:</ion-label>
+		</ion-item>
+		<ion-item class="box styleBorder" style="font-size: 1rem;margin-top: 10px;">
+			<ion-grid>
+				<ion-row>
+				  	<ion-col col-3>Block #</ion-col>
+				  	<ion-col col-3>Conf(s)</ion-col>
+				  	<ion-col col-3>Value</ion-col>
+				  	<ion-col col-3>EtherScan</ion-col>
+				</ion-row>
+			</ion-grid>
+		</ion-item>
+		<ion-item *ngFor="let trx of transactions" style="font-size: 1rem;margin-top: 10px;">
+			<ion-grid>
+				<ion-row>
+				  	<ion-col col-3>{{ trx.blockNumber }}</ion-col>
+				  	<ion-col col-3>{{ trx.confirmations }}</ion-col>
+				  	<ion-col col-3>{{ (trx.value / ( 1000000000000000000 ) ) }}</ion-col>
+					  <ion-col col-3><a class="btn style" href="https://etherscan.io/tx/{{ trx.hash }}" style="width: 100%;margin-top: -10px;height: 200%;" ion-button><ion-icon name="information"></ion-icon></a></ion-col>
+					</ion-row>
+			</ion-grid>
+		</ion-item>
+	  </ion-list>
+</ion-content>
