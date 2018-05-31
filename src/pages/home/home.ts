@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { CamPage } from '../cam/cam';
 import { DetailsPage } from '../details/details';
 import { NativeStorage } from '@ionic-native/native-storage';
+import Web3 from 'web3';
 
 @Component({
   	selector: 'page-home',
@@ -11,7 +12,8 @@ import { NativeStorage } from '@ionic-native/native-storage';
 export class HomePage {
 	isSaved:any;
 	savedAddress:any;
-  	constructor(public navCtrl: NavController, private nativeStorage: NativeStorage) {
+	customAddress:any;
+  	constructor(public web3:Web3, public navCtrl: NavController, private nativeStorage: NativeStorage) {
 		this.isSaved = false;
 		this.savedAddress = '';
 	}
@@ -26,5 +28,15 @@ export class HomePage {
 			data => this.navCtrl.push(DetailsPage,{address:data.address}),
 			error => alert('No saved address found, please use the QR Scanner')
 		);
+	}
+
+	_handleCustomAddress () {
+		if (this.web3.utils.isAddress(this.customAddress) == true) {
+			alert('Done!');
+			this.navCtrl.push(DetailsPage,{address:this.customAddress},{animate:true,animation:'md-transition',direction:'forward',duration:500})
+		} else {
+			alert('Error, not a valid address');
+			return;
+		}
 	}
 }

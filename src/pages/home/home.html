@@ -2,9 +2,13 @@
 	<div class="logo"></div>
 	<div class="intro box">
 		<h2>0xBitcoin Wallet</h2>
-		<p>You can get started by scanning the QR Code of your Ethereum wallet (Provided when you created your wallet) or you can generate a new one.</p>
+		<p>You can get started by scanning the QR Code of your Ethereum wallet (Provided when you created your wallet) or you can type your address below.</p>
 		<p class="tip">After you click the scan button below you will have 10 seconds to scan the QR Code or you will be returned to this page.</p>
 	</div>
+	<ion-item>
+		<ion-input [(ngModel)]="customAddress" type="text" placeholder="Type your address"></ion-input>
+		<button ion-button clear item-end (click)="_handleCustomAddress()"><ion-icon name="arrow-forward"></ion-icon></button>
+	</ion-item>
 	<button ion-button full class="btn" style="margin-top: 10%;" (click)="_handleScan()"><ion-icon name="qr-scanner"></ion-icon></button>
 	<button ion-button full class="btn" style="margin-top: 10%;" (click)="_handleSaved()">Load Saved</button>
 </ion-content>
