@@ -18,7 +18,9 @@ export class DetailsPage {
 	tokensAwarded:any;
 	usingCustomDifficulty:any;
 	walletBalance:any;
+	_0x:any;
 	transactions:any;
+	pools:any[];
   	constructor(public navCtrl: NavController, public navParams: NavParams, public http:HttpClient, private nativeStorage: NativeStorage) {
 		this.tokenBalance = ' ';
 		this.validSubmittedSolutionsCount = ' ';
@@ -26,13 +28,30 @@ export class DetailsPage {
 		this.tokensAwarded = ' ';
 		this.usingCustomDifficulty = ' ';
 		this.walletBalance = ' ';
+		this._0x = ' ';
 		this.transactions = [];
 		this.address = this.navParams.get('address');
+		this.loadEtherData(this.address)
 		this.nativeStorage.setItem('recAddress', {address: this.address})
 		.then(
 			() => console.log('Stored item!'),
 			error => console.log('Error storing item')
 		);
+
+		http.get('https://husl-f0f4b.firebaseio.com/Pools.json').subscribe(
+			response => {
+				const __this = this;
+				__this.pools = []
+				Object.keys(response).forEach(
+					element => {
+						__this.pools.push({
+							name:response[element]['name'],
+							ip:response[element]['ip']
+						})
+					}
+				);
+			}
+		)
 	}
 
 	handleFound(address,data) {
@@ -46,8 +65,8 @@ export class DetailsPage {
 	}
 
 	loadPoolData(data) {
-		const _this = this;
-		this.loadEtherData(_this.address);
+		const __this = this;
+		this.loadEtherData(__this.address);
 		const socket = io(data,{transports: ['websocket']});
 		socket.connect();
 		socket.open()
@@ -58,8 +77,8 @@ export class DetailsPage {
 		socket.on('minerData',function(data){
 			var address;
 			for(address of data) {
-				if (address.minerAddress == _this.address) {
-					_this.handleFound(address.minerAddress,address.minerData)
+				if (address.minerAddress == __this.address) {
+					__this.handleFound(address.minerAddress,address.minerData)
 					socket.disconnect()
 					break;
 				} else {
@@ -73,8 +92,8 @@ export class DetailsPage {
 			}/*
 			data.some(
 				function (value, index, _arr) {
-					if (value.minerAddress == _this.address) {
-						return _this.handleFound(value.minerAddress,value.minerData)
+					if (value.minerAddress == __this.address) {
+						return __this.handleFound(value.minerAddress,value.minerData)
 					} else {break;}
 				}
 			);	*/
@@ -94,7 +113,12 @@ export class DetailsPage {
 					this.walletBalance = (response['result']/1000000000000000000);
 				}
 			)
-			this.http.get('http://api.etherscan.io/api?module=account&action=txlist&address=' + address + '&startblock=0&endblock=99999999&sort=asc&apikey=Y68XEEV6QB8SRCERCSGDUGMKWEWKRJ79GT',httpOptions).subscribe(
+			this.http.get('https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=0xb6ed7644c69416d67b522e20bc294a9a9b405b31&address=' + address + '&tag=latest&apikey=Y68XEEV6QB8SRCERCSGDUGMKWEWKRJ79GT',httpOptions).subscribe(
+				response => {
+					this._0x = (response['result']/(10**8));
+				}
+			)
+			this.http.get('http://api.etherscan.io/api?module=account&action=txlist&address=' + address + '&startblock=0&endblock=99999999&sort=desc&apikey=Y68XEEV6QB8SRCERCSGDUGMKWEWKRJ79GT',httpOptions).subscribe(
 				response => {
 					this.transactions = response['result'];
 					console.info(this.transactions)

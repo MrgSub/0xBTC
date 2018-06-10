@@ -17,14 +17,15 @@
 	<ion-list>
 		<ion-item class="box style">
 		  	<ion-label>Choose a pool</ion-label>
-		  	<ion-select [(ngModel)]="pool" (ionChange)="loadPoolData(pool)">
-				<ion-option value="mike.rs:4000">Mike.rs</ion-option>
+		<ion-select [(ngModel)]="pool" (ionChange)="loadPoolData(pool)">
+				<!--<ion-option value="mike.rs:4000">Mike.rs</ion-option>
 				<ion-option value="b.mike.rs:4000">b.Mike.rs</ion-option>
 				<ion-option value="0xpool.io:4000">0xPool</ion-option>
 				<ion-option value="tokenminingpool.com:4000">TokenMiningPool</ion-option>
 				<ion-option value="0xminingpool.com:4000">0xMiningPool</ion-option>
 				<ion-option value="0xbtc.wolfpool.io:4000">Wolfpool</ion-option>
-				<ion-option value="tosti.ro:4000">Tosti</ion-option>
+				<ion-option value="tosti.ro:4000">Tosti</ion-option>-->
+				<ion-option *ngFor="let poolData of pools"  value="{{poolData.ip}}">{{poolData.name}}</ion-option>
 		  	</ion-select>
 		</ion-item>
 		<ion-item>
@@ -51,8 +52,12 @@
 			<ion-label>EtherScan</ion-label>
 		</ion-item>
 		<ion-item> 
-			<ion-label>Wallet Balance</ion-label>
+			<ion-label>ETH Balance</ion-label>
 			<p item-end>{{walletBalance}}</p>
+		</ion-item>
+		<ion-item> 
+			<ion-label>0xBTC Balance</ion-label>
+			<p item-end>{{_0x}}</p>
 		</ion-item>
 		<ion-item class="box styleBorder"> 
 			<ion-label style="font-size: 1.4rem;">Transactions:</ion-label>

@@ -19,7 +19,7 @@ export class HomePage {
 	}
 
 	_handleScan() {
-		this.navCtrl.push(CamPage);
+		this.navCtrl.push(DetailsPage);
 	}
 
 	_handleSaved() {
